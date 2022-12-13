@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bke-app-deployment
+  labels:
+    app: bke-app-dep
+  namespace: challenge-app-development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bke-app
+  template:
+    metadata:
+      labels:
+        app: bke-app
+    spec:
+      containers:
+      - name: container-0
+        image: curdanetp/bke-app:latest
+        ports:
+        - containerPort: 4000
+        env:
+        - name: DB_USER
+          value: "curdanet"
+        - name: DB_PASSWORD
+          value: "adriana"
+        - name: DB_HOST
+          value: "192.168.1.85"
+        - name: DB_DATABASE
+          value: "tasksdb"
+        - name: DB_PORT
+          value: "5432"
+        - name: PORT
+          value: "4000"
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

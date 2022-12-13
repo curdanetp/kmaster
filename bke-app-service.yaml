@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bke-app-nodeport
+  annotations:
+    field.cattle.io/description: Backend App Service
+  namespace: challenge-app-development
+spec:
+  selector:
+    app: bke-app
+  type: NodePort
+  ports:
+    - nodePort: 30004
+      port: 4000
+      targetPort: 4000
